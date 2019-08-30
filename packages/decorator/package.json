@@ -1,0 +1,36 @@
+{
+  "name": "@unicord/decorator",
+  "version": "1.0.0",
+  "description": "A complex set of Unicord's decorator and annotations",
+  "keywords": [
+    "discord",
+    "unicorn",
+    "unicord",
+    "unity",
+    "decorator"
+  ],
+  "author": "BillyAddlers <finnsonalca123@gmail.com>",
+  "homepage": "https://j-dev.xyz/projects/unicord",
+  "license": "AGPL-3.0",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}

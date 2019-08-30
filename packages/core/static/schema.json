@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://j-dev.com/unicord/schema.json",
+    "title": "Unicord Configuration Scheme",
+    "description": "A schema for Unicord Configuration",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "version": {
+            "description": "The global semantic versioning for the project",
+            "type": "integer"
+        },
+        "sourceFolder": {
+            "type": "string",
+            "description": "Default source folder for the Unicord System to locate your project. (Default to 'src')"
+        },
+        "componentFolder": {
+            "type": "string",
+            "description": "Default component folder for the Unicord System to locate your components. (Default to 'app')"
+        },
+        "providers": {
+            "type": "object",
+            "description": "Basic setup of external providers of your project.",
+            "properties": {
+                "databases": {
+                    "type": "object",
+                    "description": "Set this to true to provide your project with builtin databases.",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "description": "Set this to true to enable database system."
+                        },
+                        "databaseProvider": {
+                            "type": "string",
+                            "description": "Set this to your prefered databases. Available are 'Enmap', 'mySQL', 'postgreSQL', 'mongoDB', 'JSON', and 'Custom'",
+                            "enum": ["Enmap", "Quick.db", "mySQL", "postgreSQL", "mongoDB", "JSON", "Custom"]
+                        },
+                        "databaseConnection": {
+                            "type": "object",
+                            "description": "Only set this if you're using remote databases.",
+                            "properties": {
+                                "address": {
+                                    "type": "string"
+                                },
+                                "user": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "dbname": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": "integer",
+                                    "description": "Set to '0000' to use default port."
+                                }
+                            }
+                        },
+                        "customDatabaseAPI": {
+                            "type": "string",
+                            "description": "Point this to your Custom Database API directory. Set this to 'package:somepackagename' to use API provided by External and installed using npm."
+                        }
+                    }
+                },
+                "interfaces": {
+                    "type": "object",
+                    "description": "Interfaces used to expose Unicord's application program interface to another application."
+                }
+            }
+        },
+        "prefix": {
+            "type": "string",
+            "description": "A prefix that will be used throughout the Unicord Project"
+        }
+    },
+    "required": []
+}

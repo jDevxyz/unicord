@@ -1,0 +1,41 @@
+{
+  "name": "@unicord/core",
+  "version": "1.0.0",
+  "description": "The core of Unicord, the Unicord itself",
+  "keywords": [
+    "discord",
+    "unicorn",
+    "unicord",
+    "unity",
+    "core"
+  ],
+  "author": "BillyAddlers <finnsonalca123@gmail.com>",
+  "homepage": "https://j-dev.xyz/projects/unicord",
+  "license": "AGPL-3.0",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "app-root-path": "^2.2.1",
+    "dotenv": "^8.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3",
+    "@types/app-root-path": "^1.2.4"
+  }
+}
