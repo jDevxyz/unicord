@@ -43,5 +43,5 @@ export interface UniConfigFunction {
 }
 
 export interface ListenerAdapter  {
-    name?: string | undefined
+    name: string
 }

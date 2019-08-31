@@ -4,9 +4,11 @@
  */
 
 import { configLoader, configInitialize, configManagement } from './functions/configLoader';
+import { defaultConfig } from './functions/defaultConfig';
 
 export {
     configLoader,
     configInitialize,
-    configManagement
+    configManagement,
+    defaultConfig
 }
