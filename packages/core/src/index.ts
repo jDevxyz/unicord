@@ -3,6 +3,10 @@
  *   All rights reserved.
  */
 
-import { configLoader } from './functions/configLoader';
+import { configLoader, configInitialize, configManagement } from './functions/configLoader';
 
-export { configLoader }
+export {
+    configLoader,
+    configInitialize,
+    configManagement
+}

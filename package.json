@@ -1,15 +1,23 @@
 {
-  "name": "root",
-  "private": true,
-  "license": "SEE LICENSE IN LICENSE",
-  "scripts": {
-    "bootstrap": "lerna bootstrap --hoist",
-    "clean": "lerna run clean",
-    "build": "lerna run build",
-    "pub": "lerna publish"
-  },
-  "devDependencies": {
-    "lerna": "^3.16.1",
-    "typescript": "^3.5.3"
-  }
+	"name": "root",
+	"private": true,
+	"license": "SEE LICENSE IN LICENSE",
+	"devDependencies": {
+		"lerna": "^3.16.1",
+		"typescript": "^3.5.3"
+	},
+	"dependencies": {
+		"@discordjs/uws": "^11.149.1",
+		"@types/app-root-path": "^1.2.4",
+		"app-root-path": "^2.2.1",
+		"bluebird": "^3.5.5",
+		"chalk": "^2.4.2",
+		"cheerio": "^1.0.0-rc.3",
+		"discord.js": "github:discordjs/discord.js",
+		"dotenv": "^8.0.0",
+		"ffmpeg-static": "^2.5.0",
+		"node-opus": "^0.3.2",
+		"node-superfetch": "^0.1.9",
+		"os": "^0.1.1"
+	}
 }

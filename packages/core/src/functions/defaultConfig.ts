@@ -7,5 +7,7 @@ import { UniConfig } from "../typings/configurations"
 
 export const defaultConfig: UniConfig = {
     sourceFolder: "src",
-    componentFolder: "app"
+    componentFolder: "app",
+    version: 1,
+    prefix: "uni"
 }

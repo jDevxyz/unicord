@@ -32,7 +32,16 @@
   },
   "dependencies": {
     "app-root-path": "^2.2.1",
-    "dotenv": "^8.0.0"
+    "dotenv": "^8.0.0",
+    "@discordjs/uws": "^11.149.1",
+    "bluebird": "^3.5.5",
+    "chalk": "^2.4.2",
+    "cheerio": "^1.0.0-rc.3",
+    "discord.js": "github:discordjs/discord.js",
+    "ffmpeg-static": "^2.5.0",
+    "node-opus": "^0.3.2",
+    "node-superfetch": "^0.1.9",
+    "os": "^0.1.1"
   },
   "devDependencies": {
     "typescript": "^3.5.3",

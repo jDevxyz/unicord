@@ -72,5 +72,5 @@
             "description": "A prefix that will be used throughout the Unicord Project"
         }
     },
-    "required": []
+    "required": ["prefix"]
 }
