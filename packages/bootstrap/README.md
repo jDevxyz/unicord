@@ -1,11 +1,3 @@
-# `@unicord/core`
+# `@unicord/bootstrap`
 
-> TODO: description
-
-## Usage
-
-```
-const core = require('@unicord/core');
-
-// TODO: DEMONSTRATE API
-```
+> A bootstrap sample of initial Unicord Project

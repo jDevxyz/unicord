@@ -9,7 +9,7 @@
     "pub": "lerna publish"
   },
   "devDependencies": {
-    "lerna": "^3.16.1",
-    "typescript": "^3.5.3"
+    "lerna": "^3.16.4",
+    "typescript": "^3.6.2"
   }
 }
