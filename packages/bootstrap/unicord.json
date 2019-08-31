@@ -1,4 +1,12 @@
 {
     "$schema": "./node_modules/@unicord/core/static/schema.json",
-    "version": 1
+    "version": 1,
+    "sourceFolder": "src",
+    "componentFolder": "app",
+    "providers": {
+        "databases": {
+            "enabled": false
+        }
+    },
+    "prefix": "uni"
 }

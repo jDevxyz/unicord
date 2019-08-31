@@ -64,10 +64,6 @@
                             "description": "Point this to your Custom Database API directory. Set this to 'package:somepackagename' to use API provided by External and installed using npm."
                         }
                     }
-                },
-                "interfaces": {
-                    "type": "object",
-                    "description": "Interfaces used to expose Unicord's application program interface to another application."
                 }
             }
         },
