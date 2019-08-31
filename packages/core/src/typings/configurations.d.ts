@@ -41,3 +41,7 @@ export interface UniConfigFunction {
     setConfig(key: string, value: string): void
     get(key: string): Map<string, string> | string | undefined | null
 }
+
+export interface ListenerAdapter  {
+    name: string
+}
