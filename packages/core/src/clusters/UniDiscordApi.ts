@@ -5,7 +5,11 @@
 
 import { Client, Message, ClientOptions, Collection } from "discord.js";
 import { ListenerAdapter, UniConfigFunction } from "../typings/configurations";
+import { ShardingManager, SharderOptions } from "kurasuta";
 import { configInitialize, configManagement, defaultConfig } from "@unicord/core";
+import { isMaster } from "cluster";
+import chalk from "chalk";
+import { version } from "../../package.json";
 
 const defaultParameter: ClientOptions = {
     disableEveryone: true
@@ -17,20 +21,35 @@ class UniClient extends Client {
     }
 }
 
+class UniShardController extends ShardingManager {
+    constructor(file: string, opt: SharderOptions) {
+        super(file, opt)
+    }
+
+    public runMaster(callback: Function) {
+        if (isMaster) {
+            callback(this)
+        }
+    }
+}
+
 class UniBuilder {
     private token: string | undefined
     private parameter?: ClientOptions
+    private clusterparm?: SharderOptions
 
-    public listenedEvents: Collection<string, any>
+    public version: string = version
+    public listenedEvents = new Collection<string, ListenerAdapter>()
     public client?: UniClient
-    public storage?: UniConfigFunction
+    public storage?: UniConfigFunction = configInitialize()
+    public shardpath?: string
+
+    protected sharder: boolean = false
 
     constructor() {
 
 
-        this.listenedEvents = new Collection()
-
-        this.storage = configInitialize();
+        
 
         
     }
@@ -38,20 +57,43 @@ class UniBuilder {
         this.token = token
     }
     public setParameter(parm: ClientOptions): void {
+        if (this.isSharding()) console.info(chalk.bgYellowBright("WARN") + ": UniBuilder is configured for sharding. This parameter will be ignored.")
         this.parameter = <ClientOptions>Object.assign(defaultParameter, parm)
     }
-    public build(): Client {
-        this.client = new UniClient(this.parameter)
-        this.client!.login(this.token)
-        this.initialize()
-        return <Client>this.client
-    }
     public addEventListener(event: ListenerAdapter): void {
+        if (this.isSharding()) console.info(chalk.bgYellowBright("WARN") + ": UniBuilder is configured for sharding. " + "Event " + event.name + " will be ignored.")
         this.listenedEvents.set(event.name, event)
     }
+    public setClusterClient(file: string): void {
+        if (!this.isSharding()) console.info(chalk.bgYellowBright("WARN") + ": UniBuilder isn't configured for sharding. This parameter will be ignored.")
+        this.shardpath = file
+    }
+    public setClusterParameter(opt: SharderOptions): void {
+        if (!this.isSharding()) console.info(chalk.bgYellowBright("WARN") + ": UniBuilder isn't configured for sharding. This parameter will be ignored.")
+        this.clusterparm = opt
+    }
 
-    private initialize(): void {
-        
+    public build(): Client | UniShardController | undefined {
+        if (this.isSharding()) {
+            const manager = new UniShardController(<string>this.shardpath, <SharderOptions>this.clusterparm)
+            manager.spawn();
+            return manager
+        } else {
+            return this.initialize()
+        }
+    }
+
+    private initialize(): Client {
+        this.client = new UniClient(this.parameter)
+        this.client!.login(this.token)
+        return <Client>this.client
+    }
+    private isSharding(): boolean {
+        return this.sharder
+    }
+
+    public useSharding(): void {
+        this.sharder = true
     }
 }
 

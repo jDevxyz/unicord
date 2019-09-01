@@ -5,6 +5,7 @@
 
 import { Client, Collection } from "discord.js";
 import { EventEmitter } from "events";
+import { UniClient } from "../clusters/UniDiscordApi";
 
 export interface UniConfig {
     error?: boolean
@@ -36,7 +37,13 @@ export interface UniDatabaseConnection {
 }
 
 export enum TypeDatabase {
-    "Enmap", "Quick.db", "mySQL", "postgreSQL", "mongoDB", "JSON", "Custom"
+    Enmap = "Enmap",
+    QuickDB = "Quick.db",
+    mySQL = "mySQL",
+    postgreSQL = "postgreSQL",
+    mongoDB = "mongoDB",
+    JSON = "JSON",
+    Custom = "Custom"
 }
 
 export interface UniConfigFunction {
@@ -67,8 +74,23 @@ export interface ListenerAdapter  {
     ReconnectEvent?(event: EventReceiver): void
     ShutdownEvent?(event: EventReceiver): void
 
+    // SHARD EVENTS
+    ShardReadyEvent?(event: EventReceiver): void
+    ShardReconnectEvent?(event: EventReceiver): void
+    ShardResumeEvent?(event: EventReceiver): void
+    ShardDisconnectEvent?(event: EventReceiver): void
 }
 
-export interface EventReceiver {}
+export enum TypeEvents {
+    "GuildMessageReceivedEvent", "MessageReceivedEvent", "PrivateMessageReceivedEvent",
+    "WebsocketEvent",
+    "ReadyEvent", "DebugEvent", "WarnEvent", "ExceptionEvent", "DisconnectEvent", "ReconnectEvent", "ShutdownEvent",
+    "ShardReadyEvent", "ShardReconnectEvent", "ShardResumeEvent", "ShardDisconnectEvent"
+}
 
-export type UniClient = Client
+export interface EventReceiver {
+    name: string
+    type: TypeEvents
+    getClient(): UniClient
+    getEvents(): EventEmitter
+}

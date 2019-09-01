@@ -3,12 +3,17 @@
  *   All rights reserved.
  */
 
-import { configLoader, configInitialize, configManagement } from './functions/configLoader';
-import { defaultConfig } from './functions/defaultConfig';
+import { configLoader, configInitialize, configManagement } from "./functions/configLoader";
+import { defaultConfig } from "./functions/defaultConfig";
+import { UniBuilder, UniClient } from "./clusters/UniDiscordApi";
+import { BaseCluster as SessionController } from "kurasuta"
 
 export {
     configLoader,
     configInitialize,
     configManagement,
-    defaultConfig
+    defaultConfig,
+    UniBuilder,
+    UniClient,
+    SessionController
 }

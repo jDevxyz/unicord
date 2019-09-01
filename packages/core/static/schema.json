@@ -64,12 +64,56 @@
                             "description": "Point this to your Custom Database API directory. Set this to 'package:somepackagename' to use API provided by External and installed using npm."
                         }
                     }
+                },
+                "music": {
+                    "type": "object",
+                    "description": "Set this configuration section to define and enable music support.",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "description": "Set this to true to enable music support."
+                        },
+                        "musicProvider": {
+                            "type": "string",
+                            "description": "Set this to your prefered music provider. Available are 'YTDL' and 'Lavalink'",
+                            "enum": ["YTDL", "Lavalink"]
+                        },
+                        "musicConnection": {
+                            "type": "object",
+                            "description": "Only set this if you're using Lavalink",
+                            "properties": {
+                                "address": {
+                                    "type": "string"
+                                },
+                                "user": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "dbname": {
+                                    "type": "string"
+                                },
+                                "RESTport": {
+                                    "type": "integer",
+                                    "description": "Set to '0000' to use default port."
+                                },
+                                "Websocketport": {
+                                    "type": "integer",
+                                    "description": "Set to '0000' to use default port."
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
         "prefix": {
             "type": "string",
             "description": "A prefix that will be used throughout the Unicord Project"
+        },
+        "sharding": {
+            
         }
     },
     "required": ["prefix"]
