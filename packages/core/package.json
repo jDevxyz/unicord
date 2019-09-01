@@ -18,6 +18,7 @@
   },
   "main": "dist/index",
   "types": "dist/index",
+  "typings": "index.d.ts",
   "files": [
     "dist"
   ],
@@ -32,7 +33,7 @@
   },
   "dependencies": {
     "app-root-path": "^2.2.1",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.1.0",
     "@discordjs/uws": "^11.149.1",
     "bluebird": "^3.5.5",
     "chalk": "^2.4.2",
@@ -44,7 +45,7 @@
     "os": "^0.1.1"
   },
   "devDependencies": {
-    "typescript": "^3.5.3",
+    "typescript": "^3.6.2",
     "@types/app-root-path": "^1.2.4"
   }
 }

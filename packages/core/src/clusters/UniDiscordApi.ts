@@ -3,53 +3,56 @@
  *   All rights reserved.
  */
 
-import { Client, Message, ClientOptions } from "discord.js";
+import { Client, Message, ClientOptions, Collection } from "discord.js";
 import { ListenerAdapter, UniConfigFunction } from "../typings/configurations";
-import { paramInjector } from "@unicord/decorator"
-import { configInitialize, configManagement, defaultConfig } from "@unicord/core"
+import { configInitialize, configManagement, defaultConfig } from "@unicord/core";
 
 const defaultParameter: ClientOptions = {
     disableEveryone: true
 }
 
+class UniClient extends Client {
+    constructor(opt?: ClientOptions) {
+        super(opt)
+    }
+}
+
 class UniBuilder {
-    private UniClient: any
     private token: string | undefined
     private parameter?: ClientOptions
 
-    public listenedEvents: Map<string, any>
-    public client?: Client
+    public listenedEvents: Collection<string, any>
+    public client?: UniClient
     public storage?: UniConfigFunction
 
     constructor() {
-        
 
-        class UniClient extends Client {
-            constructor(opt?: ClientOptions) {
-                super(opt)
-            }
-        }
 
-        this.UniClient = UniClient;
-        this.listenedEvents = new Map()
+        this.listenedEvents = new Collection()
 
         this.storage = configInitialize();
 
         
-    } 
+    }
     public setToken(token: string): void {
         this.token = token
     }
-    public setParameter(parm: ClientOptions) {
-        this.parameter = <ClientOptions>Object.assign(parm, defaultParameter)
+    public setParameter(parm: ClientOptions): void {
+        this.parameter = <ClientOptions>Object.assign(defaultParameter, parm)
     }
     public build(): Client {
-        this.client = new this.UniClient(this.parameter)
+        this.client = new UniClient(this.parameter)
         this.client!.login(this.token)
+        this.initialize()
         return <Client>this.client
     }
     public addEventListener(event: ListenerAdapter): void {
         this.listenedEvents.set(event.name, event)
     }
+
+    private initialize(): void {
+        
+    }
 }
 
+export { UniBuilder, UniClient }

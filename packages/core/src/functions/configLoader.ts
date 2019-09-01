@@ -5,6 +5,7 @@
 
 import { UniConfig, UniConfigFunction } from "../typings/configurations";
 import { require as __require } from "app-root-path";
+import { Collection } from "discord.js";
 import { defaultConfig } from "./defaultConfig";
 
 export function configLoader(): UniConfig {
@@ -22,7 +23,7 @@ export function configLoader(): UniConfig {
 }
 
 export function configManagement(): UniConfigFunction {
-    const storage = new Map<string, string>();
+    const storage = new Collection<string, string>();
     return {
         setToken(token: string): void {
             storage.set("token", token);
@@ -36,7 +37,7 @@ export function configManagement(): UniConfigFunction {
         setConfig(key: string, value: string): void {
             storage.set(key.toLowerCase(), value.toLowerCase())
         },
-        get(key: string): Map<string, string> | string | undefined | null {
+        get(key: string): Collection<string, string> | string | undefined | null {
             if (!key) return storage;
             return storage.get(key);
         }

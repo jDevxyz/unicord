@@ -1,11 +1,18 @@
 # `@unicord/core`
 
-> TODO: description
+> The core of Unicord, the Unicord itself
 
 ## Usage
 
-```
-const core = require('@unicord/core');
+```ts
+import { UniBuilder, UniClient } from '@unicord/core';
+import { MessageEvent } from './MessageEvent';
 
-// TODO: DEMONSTRATE API
+const client: UniClient = new UniBuilder()
+    .setParameter({
+        disableEveryone: true
+    })
+    .setToken(process.env.TOKEN)
+    .addEventListener(new MessageEvent())
+    .build()
 ```

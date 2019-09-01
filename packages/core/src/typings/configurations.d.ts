@@ -3,6 +3,9 @@
  *   All rights reserved.
  */
 
+import { Client, Collection } from "discord.js";
+import { EventEmitter } from "events";
+
 export interface UniConfig {
     error?: boolean
     version?: number
@@ -39,9 +42,33 @@ export enum TypeDatabase {
 export interface UniConfigFunction {
     setToken(token: string): void
     setConfig(key: string, value: string): void
-    get(key: string): Map<string, string> | string | undefined | null
+    get(key: string): Collection<string, string> | string | undefined | null
 }
 
 export interface ListenerAdapter  {
     name: string
+
+    // MESSAGE EVENTS
+    GuildMessageReceivedEvent?(event: EventReceiver): void
+    MessageReceivedEvent?(event: EventReceiver): void
+    PrivateMessageReceivedEvent?(event: EventReceiver): void
+
+    /**
+     * @experimental
+     */
+    WebsocketEvent?(event: EventReceiver): void
+
+    // STATE EVENTS
+    ReadyEvent?(event: EventReceiver): void
+    DebugEvent?(event: EventReceiver): void
+    WarnEvent?(event: EventReceiver): void
+    ExceptionEvent?(event: EventReceiver): void
+    DisconnectEvent?(event: EventReceiver): void
+    ReconnectEvent?(event: EventReceiver): void
+    ShutdownEvent?(event: EventReceiver): void
+
 }
+
+export interface EventReceiver {}
+
+export type UniClient = Client
