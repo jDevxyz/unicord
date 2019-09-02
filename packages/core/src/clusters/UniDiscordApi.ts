@@ -11,17 +11,17 @@ import { isMaster } from "cluster";
 import chalk from "chalk";
 import { version } from "../../package.json";
 
-const defaultParameter: ClientOptions = {
+export const defaultParameter: ClientOptions = {
     disableEveryone: true
 }
 
-class UniClient extends Client {
+export class UniClient extends Client {
     constructor(opt?: ClientOptions) {
         super(opt)
     }
 }
 
-class UniShardController extends ShardingManager {
+export class UniShardController extends ShardingManager {
     constructor(file: string, opt: SharderOptions) {
         super(file, opt)
     }
@@ -33,7 +33,7 @@ class UniShardController extends ShardingManager {
     }
 }
 
-class UniBuilder {
+export class UniBuilder {
     private token: string | undefined
     private parameter?: ClientOptions
     private clusterparm?: SharderOptions
@@ -46,13 +46,7 @@ class UniBuilder {
 
     protected sharder: boolean = false
 
-    constructor() {
-
-
-        
-
-        
-    }
+    constructor() { }
     public setToken(token: string): void {
         this.token = token
     }
@@ -61,7 +55,6 @@ class UniBuilder {
         this.parameter = <ClientOptions>Object.assign(defaultParameter, parm)
     }
     public addEventListener(event: ListenerAdapter): void {
-        if (this.isSharding()) console.info(chalk.bgYellowBright("WARN") + ": UniBuilder is configured for sharding. " + "Event " + event.name + " will be ignored.")
         this.listenedEvents.set(event.name, event)
     }
     public setClusterClient(file: string): void {
@@ -73,7 +66,7 @@ class UniBuilder {
         this.clusterparm = opt
     }
 
-    public build(): Client | UniShardController | undefined {
+    public build(): UniClient | UniShardController | undefined {
         if (this.isSharding()) {
             const manager = new UniShardController(<string>this.shardpath, <SharderOptions>this.clusterparm)
             manager.spawn();
@@ -83,10 +76,10 @@ class UniBuilder {
         }
     }
 
-    private initialize(): Client {
+    private initialize(): UniClient {
         this.client = new UniClient(this.parameter)
         this.client!.login(this.token)
-        return <Client>this.client
+        return <UniClient>this.client
     }
     private isSharding(): boolean {
         return this.sharder
@@ -96,5 +89,3 @@ class UniBuilder {
         this.sharder = true
     }
 }
-
-export { UniBuilder, UniClient }

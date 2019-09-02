@@ -75,6 +75,8 @@ export interface ListenerAdapter  {
     ShutdownEvent?(event: EventReceiver): void
 
     // SHARD EVENTS
+    ShardDebugEvent?(event: EventReceiver): void
+    ShardMessageEvent?(event: EventReceiver): void
     ShardReadyEvent?(event: EventReceiver): void
     ShardReconnectEvent?(event: EventReceiver): void
     ShardResumeEvent?(event: EventReceiver): void
@@ -93,4 +95,8 @@ export interface EventReceiver {
     type: TypeEvents
     getClient(): UniClient
     getEvents(): EventEmitter
+}
+
+export interface DeserializedEvent {
+    
 }
